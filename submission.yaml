@@ -1,7 +1,7 @@
 team_name: "Tech Titans"
 track: "AI"
 problem_statement: "L1 — Container Congestion Predictor & Port Operations Optimiser"
-repository_url: "https://github.com/Upgrade-009/bob-ai-hackathon-tech-titans"
+repository_url: "https://github.com/Upgrade-009/bob-ai-hackathon-tech-titan"
 project_title: "Container Congestion Predictor & Port Operations Optimiser"
 project_description: "An intelligent port control center powered by IBM Bob & MCP, providing real-time congestion hotspot prediction, berth and crane assignment optimization, alternate routing recommendations, and automated 72-hour operational planning."
 tech_stack:
@@ -11,14 +11,20 @@ tech_stack:
   - Vanilla HTML/CSS/JavaScript
   - IBM Bob / Model Context Protocol (MCP)
 team_members:
-  - name: "Dhruv"
-    role: "Lead Software Engineer / AI Architect"
-    email: "team.techtitans.hackathon@example.com"
-  - name: "Tech Titan Member 2"
+  - name: "HEER SUNILKUMAR PATEL"
+    role: "Team Leader"
+    email: "25bca129@charusat.edu.in"
+
+  - name: "HEER NIMESHKUMAR PATEL"
     role: "Full Stack Engineer"
-    email: "team.member2.hackathon@example.com"
-  - name: "Tech Titan Member 3"
+    email: "25bca128@charusat.edu.in"
+
+  - name: "Dhruvil Kamlesh Bhai Modi"
+    role: "Lead Software Engineer / AI Architect"
+    email: "26msit066@charusat.edu.in"
+
+  - name: "Utsav Rajesh Bhai Saliya"
     role: "Data & Systems Engineer"
-    email: "team.member3.hackathon@example.com"
+    email: "26msit131@charusat.edu.in"
 submission_date: "2026-09-15"
 version: "1.0.0"
