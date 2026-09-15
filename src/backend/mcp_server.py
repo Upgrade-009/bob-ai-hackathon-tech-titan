@@ -7,15 +7,28 @@ import sys
 import json
 from pathlib import Path
 
-# Add backend directory to path if executed standalone
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
+# Add backend directory and root directory to sys.path if executed standalone
+root_dir = Path(__file__).resolve().parent.parent.parent
+backend_dir = Path(__file__).resolve().parent
+if str(root_dir) not in sys.path:
+    sys.path.insert(0, str(root_dir))
+if str(backend_dir) not in sys.path:
+    sys.path.insert(0, str(backend_dir))
 
-from src.backend.database import fetch_all, fetch_one, init_db
-from src.backend.services.congestion import calculate_congestion_risk
-from src.backend.services.berth_optimizer import optimize_berth_assignment
-from src.backend.services.crane_optimizer import optimize_crane_assignment
-from src.backend.services.routing import recommend_alternate_routing
-from src.backend.services.operations_plan import generate_72_hour_operations_plan
+try:
+    from src.backend.database import fetch_all, fetch_one, init_db
+    from src.backend.services.congestion import calculate_congestion_risk
+    from src.backend.services.berth_optimizer import optimize_berth_assignment
+    from src.backend.services.crane_optimizer import optimize_crane_assignment
+    from src.backend.services.routing import recommend_alternate_routing
+    from src.backend.services.operations_plan import generate_72_hour_operations_plan
+except ModuleNotFoundError:
+    from database import fetch_all, fetch_one, init_db
+    from services.congestion import calculate_congestion_risk
+    from services.berth_optimizer import optimize_berth_assignment
+    from services.crane_optimizer import optimize_crane_assignment
+    from services.routing import recommend_alternate_routing
+    from services.operations_plan import generate_72_hour_operations_plan
 
 # MCP Tool Implementations (Shared Business Logic)
 def get_port_status():

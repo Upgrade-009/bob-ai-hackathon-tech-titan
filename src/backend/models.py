@@ -87,6 +87,7 @@ class BerthOptimizeRequest(BaseModel):
 class BerthOptimizeResponse(BaseModel):
     vessel_id: str
     recommended_berth: str
+    berth_name: Optional[str] = None
     expected_start_time: str
     expected_completion_time: str
     estimated_service_hrs: float
@@ -112,6 +113,7 @@ class AlternateRouteRequest(BaseModel):
 
 class AlternateRouteRecommendation(BaseModel):
     vessel_id: str
+    vessel_name: Optional[str] = None
     current_status: str
     congestion_level: str
     recommended_option: str  # Alternate Port, Alternate Berth, Delayed Departure, Rerouting
