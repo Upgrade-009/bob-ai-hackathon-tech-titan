@@ -1,0 +1,23 @@
+vessel_id,name,eta,current_port,destination,cargo_type,container_count,priority,assigned_berth,estimated_waiting_time_hrs,length_m,draft_m,status
+V101,Ever Given,2026-09-15T08:00:00,Port Alpha,Main Terminal,Containers,4200,HIGH,B01,1.5,399,16.0,ARRIVED
+V102,Maersk Mc-Kinney,2026-09-15T10:30:00,Port Beta,Main Terminal,Containers,5500,CRITICAL,B03,8.5,399,15.5,WAITING
+V103,CMA CGM Antoine,2026-09-15T11:00:00,Port Gamma,Main Terminal,Reefer,3800,HIGH,B03,9.0,396,15.0,IN_TRANSIT
+V104,MSC Oscar,2026-09-15T12:00:00,Port Alpha,Main Terminal,Containers,4900,MEDIUM,B02,2.0,395,16.0,IN_TRANSIT
+V105,COSCO Shipping Universe,2026-09-15T14:00:00,Port Beta,Main Terminal,Hazardous,2100,CRITICAL,B05,12.0,400,16.0,WAITING
+V106,HMM Algeciras,2026-09-15T15:30:00,Port Gamma,Main Terminal,Containers,6100,HIGH,B03,11.5,400,16.5,IN_TRANSIT
+V107,ONE Triumph,2026-09-15T17:00:00,Port Alpha,Main Terminal,Containers,3200,LOW,B04,0.5,366,14.5,IN_TRANSIT
+V108,OOCL Hong Kong,2026-09-15T18:00:00,Port Beta,Main Terminal,Containers,4100,MEDIUM,B02,3.0,399,15.8,IN_TRANSIT
+V109,Ever Ace,2026-09-15T20:00:00,Port Gamma,Main Terminal,Reefer,4700,HIGH,B05,14.0,400,16.2,IN_TRANSIT
+V110,Yang Ming Wish,2026-09-16T01:00:00,Port Alpha,Main Terminal,Containers,2800,LOW,B06,0.0,335,13.5,SCHEDULED
+V111,PIL Kota Pelepas,2026-09-16T03:30:00,Port Beta,Main Terminal,General Cargo,1500,MEDIUM,B07,1.0,280,12.0,SCHEDULED
+V112,ZIM Integrated,2026-09-16T06:00:00,Port Gamma,Main Terminal,Containers,3600,HIGH,B01,2.5,340,14.0,SCHEDULED
+V113,WAN HAI 512,2026-09-16T08:00:00,Port Alpha,Main Terminal,General Cargo,1900,LOW,B06,0.0,268,11.5,SCHEDULED
+V114,KMTC Incheon,2026-09-16T10:00:00,Port Beta,Main Terminal,Containers,2200,MEDIUM,B04,1.5,230,11.0,SCHEDULED
+V115,Matson Honolulu,2026-09-16T12:30:00,Port Gamma,Main Terminal,Reefer,1800,HIGH,B08,0.5,250,11.8,SCHEDULED
+V116,SM Line Seoul,2026-09-16T15:00:00,Port Alpha,Main Terminal,Containers,3100,MEDIUM,B02,4.0,300,13.0,SCHEDULED
+V117,Sinokor Busan,2026-09-16T18:00:00,Port Beta,Main Terminal,General Cargo,1200,LOW,B07,0.0,200,10.0,SCHEDULED
+V118,RCL Bangkok,2026-09-16T21:00:00,Port Gamma,Main Terminal,Containers,2900,MEDIUM,B04,2.0,290,12.5,SCHEDULED
+V119,TS Lines Shanghai,2026-09-17T02:00:00,Port Alpha,Main Terminal,Reefer,2400,HIGH,B08,1.0,260,12.2,SCHEDULED
+V120,SITC Qingdao,2026-09-17T06:00:00,Port Beta,Main Terminal,Containers,1700,LOW,B06,0.0,210,10.5,SCHEDULED
+V121,Pacific Eagle,2026-09-17T10:00:00,Port Gamma,Main Terminal,Hazardous,3300,CRITICAL,B05,16.0,350,14.8,SCHEDULED
+V122,Atlas Mariner,2026-09-17T14:00:00,Port Alpha,Main Terminal,Containers,5200,HIGH,B03,13.0,398,15.9,SCHEDULED

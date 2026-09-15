@@ -1,0 +1,38 @@
+name: Validate Hackathon Submission
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  validate-submission:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Verify Required Top-Level Structure
+        run: |
+          echo "Checking required hackathon files..."
+          test -f submission.yaml || (echo "Missing submission.yaml" && exit 1)
+          test -f README.md || (echo "Missing README.md" && exit 1)
+          test -d src || (echo "Missing src/" && exit 1)
+          test -d docs || (echo "Missing docs/" && exit 1)
+          test -d demo || (echo "Missing demo/" && exit 1)
+          test -d presentation || (echo "Missing presentation/" && exit 1)
+          test -f CONTRIBUTING.md || (echo "Missing CONTRIBUTING.md" && exit 1)
+          test -f .gitignore || (echo "Missing .gitignore" && exit 1)
+          echo "Top-level structure verification passed."
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Syntax Check Python Source Files
+        run: |
+          python -m py_compile src/backend/*.py src/backend/services/*.py
+          echo "All Python source files passed compilation checks."

@@ -1,0 +1,24 @@
+team_name: "Tech Titans"
+track: "AI"
+problem_statement: "L1 — Container Congestion Predictor & Port Operations Optimiser"
+repository_url: "https://github.com/Upgrade-009/bob-ai-hackathon-tech-titans"
+project_title: "Container Congestion Predictor & Port Operations Optimiser"
+project_description: "An intelligent port control center powered by IBM Bob & MCP, providing real-time congestion hotspot prediction, berth and crane assignment optimization, alternate routing recommendations, and automated 72-hour operational planning."
+tech_stack:
+  - Python 3.11+
+  - FastAPI
+  - SQLite
+  - Vanilla HTML/CSS/JavaScript
+  - IBM Bob / Model Context Protocol (MCP)
+team_members:
+  - name: "Dhruv"
+    role: "Lead Software Engineer / AI Architect"
+    email: "team.techtitans.hackathon@example.com"
+  - name: "Tech Titan Member 2"
+    role: "Full Stack Engineer"
+    email: "team.member2.hackathon@example.com"
+  - name: "Tech Titan Member 3"
+    role: "Data & Systems Engineer"
+    email: "team.member3.hackathon@example.com"
+submission_date: "2026-09-15"
+version: "1.0.0"

@@ -1,0 +1,9 @@
+berth_id,name,max_ship_length,max_draft,capacity_teu,current_occupancy,status,zone
+B01,North Quay 1,410,17.0,8000,75.0,AVAILABLE,North Terminal
+B02,North Quay 2,410,16.5,7500,82.0,CONGESTED,North Terminal
+B03,Central Deepwater 1,420,18.0,12000,98.0,CONGESTED,Central Terminal
+B04,Central Deepwater 2,380,15.5,6000,45.0,AVAILABLE,Central Terminal
+B05,Hazardous & Heavy Quay,420,17.5,9000,100.0,BLOCKED,East Terminal
+B06,South Quay 1,350,14.0,5000,30.0,AVAILABLE,South Terminal
+B07,South Quay 2,300,13.0,4000,20.0,AVAILABLE,South Terminal
+B08,Reefer Dedicated Quay,320,13.5,4500,40.0,AVAILABLE,East Terminal

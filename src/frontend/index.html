@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Port Operations Control Center | IBM Bob AI Hackathon</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="brand">
+                <i class="fa-solid fa-anchor brand-icon"></i>
+                <div class="brand-text">
+                    <h2>PortControl AI</h2>
+                    <span class="badge-tag">Tech Titans • IBM Bob</span>
+                </div>
+            </div>
+
+            <nav class="nav-menu">
+                <button class="nav-item active" data-tab="dashboard">
+                    <i class="fa-solid fa-chart-line"></i> Dashboard
+                </button>
+                <button class="nav-item" data-tab="vessel-analysis">
+                    <i class="fa-solid fa-ship"></i> Vessel Analysis
+                </button>
+                <button class="nav-item" data-tab="congestion-routing">
+                    <i class="fa-solid fa-triangle-exclamation"></i> Congestion & Routing
+                </button>
+                <button class="nav-item" data-tab="optimization-studio">
+                    <i class="fa-solid fa-sliders"></i> Optimization Studio
+                </button>
+                <button class="nav-item" data-tab="operations-plan">
+                    <i class="fa-solid fa-calendar-days"></i> 72-Hour Ops Plan
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button id="btn-refresh" class="btn-secondary">
+                    <i class="fa-solid fa-rotate-right"></i> Refresh Telemetry
+                </button>
+                <div class="status-indicator">
+                    <span class="dot online"></span> API Connected
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Header Bar -->
+            <header class="top-header">
+                <div class="header-title">
+                    <h1 id="page-title">Port Operations Overview</h1>
+                    <p class="subtitle">Container Congestion Predictor & Real-time Operations Optimiser (Problem Statement L1)</p>
+                </div>
+                <div class="header-actions">
+                    <span class="live-clock" id="live-clock">--:--:--</span>
+                    <button class="btn-primary" id="btn-toggle-assistant">
+                        <i class="fa-solid fa-robot"></i> Bob Copilot AI
+                    </button>
+                </div>
+            </header>
+
+            <!-- Loading Spinner -->
+            <div id="loading-overlay" class="loading-overlay hidden">
+                <div class="spinner"></div>
+                <p>Connecting to Port Operations API...</p>
+            </div>
+
+            <!-- TAB 1: Dashboard -->
+            <section id="tab-dashboard" class="tab-content active">
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-icon blue"><i class="fa-solid fa-ship"></i></div>
+                        <div class="kpi-data">
+                            <span class="kpi-label">Total Vessels</span>
+                            <h3 id="kpi-total-vessels">--</h3>
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon red"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                        <div class="kpi-data">
+                            <span class="kpi-label">Vessels at Risk</span>
+                            <h3 id="kpi-vessels-at-risk">--</h3>
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon orange"><i class="fa-solid fa-warehouse"></i></div>
+                        <div class="kpi-data">
+                            <span class="kpi-label">Congested Berths</span>
+                            <h3 id="kpi-congested-berths">--</h3>
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon yellow"><i class="fa-solid fa-clock"></i></div>
+                        <div class="kpi-data">
+                            <span class="kpi-label">Avg Waiting Time</span>
+                            <h3 id="kpi-avg-wait">-- hrs</h3>
+                        </div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-icon purple"><i class="fa-solid fa-gears"></i></div>
+                        <div class="kpi-data">
+                            <span class="kpi-label">Crane Utilisation</span>
+                            <h3 id="kpi-crane-util">-- %</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <!-- Congestion Status Panel -->
+                    <div class="panel grid-col-8">
+                        <div class="panel-header">
+                            <h3><i class="fa-solid fa-fire"></i> Berth Occupancy & Congestion Risk</h3>
+                            <span class="badge" id="overall-risk-badge">CALCULATING...</span>
+                        </div>
+                        <div class="panel-body">
+                            <div id="berth-occupancy-list" class="berth-list"></div>
+                        </div>
+                    </div>
+
+                    <!-- Active Disruptions Panel -->
+                    <div class="panel grid-col-4">
+                        <div class="panel-header">
+                            <h3><i class="fa-solid fa-bolt"></i> Active Disruptions</h3>
+                            <span class="badge count-badge" id="disruptions-count">0</span>
+                        </div>
+                        <div class="panel-body">
+                            <div id="disruptions-list" class="disruptions-list"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vessel Queue Overview -->
+                <div class="panel margin-top">
+                    <div class="panel-header">
+                        <h3><i class="fa-solid fa-list-check"></i> High Priority Vessel Queue</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Vessel ID</th>
+                                        <th>Name</th>
+                                        <th>ETA</th>
+                                        <th>Priority</th>
+                                        <th>Containers</th>
+                                        <th>Assigned Berth</th>
+                                        <th>Est. Wait</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="queue-table-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 2: Vessel Analysis -->
+            <section id="tab-vessel-analysis" class="tab-content">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h3><i class="fa-solid fa-ship"></i> Vessel Fleet Directory & Telematics</h3>
+                        <div class="filter-group">
+                            <input type="text" id="vessel-search" placeholder="Search by vessel ID or name..." class="input-search">
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Vessel ID</th>
+                                        <th>Vessel Name</th>
+                                        <th>ETA</th>
+                                        <th>Origin / Destination</th>
+                                        <th>Cargo Type</th>
+                                        <th>Containers</th>
+                                        <th>Priority</th>
+                                        <th>Berth</th>
+                                        <th>Est. Wait</th>
+                                        <th>Risk</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="vessels-full-table-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 3: Congestion & Routing -->
+            <section id="tab-congestion-routing" class="tab-content">
+                <div class="dashboard-grid">
+                    <div class="panel grid-col-6">
+                        <div class="panel-header">
+                            <h3><i class="fa-solid fa-magnifying-glass-chart"></i> Congestion Hotspot Diagnostics</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div id="congestion-explainability-container"></div>
+                        </div>
+                    </div>
+
+                    <div class="panel grid-col-6">
+                        <div class="panel-header">
+                            <h3><i class="fa-solid fa-route"></i> Alternate Routing Recommendation Engine</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form id="routing-form" class="form-container">
+                                <div class="form-group">
+                                    <label>Select Target Vessel:</label>
+                                    <select id="route-vessel-select" class="form-control"></select>
+                                </div>
+                                <button type="submit" class="btn-primary full-width">
+                                    <i class="fa-solid fa-compass"></i> Calculate Alternate Routing
+                                </button>
+                            </form>
+                            <div id="routing-result-card" class="result-card hidden"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 4: Optimization Studio -->
+            <section id="tab-optimization-studio" class="tab-content">
+                <div class="dashboard-grid">
+                    <!-- Berth Optimiser -->
+                    <div class="panel grid-col-6">
+                        <div class="panel-header">
+                            <h3><i class="fa-solid fa-warehouse"></i> Berth Assignment Optimiser</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form id="berth-opt-form" class="form-container">
+                                <div class="form-group">
+                                    <label>Select Vessel:</label>
+                                    <select id="berth-vessel-select" class="form-control"></select>
+                                </div>
+                                <button type="submit" class="btn-primary full-width">
+                                    <i class="fa-solid fa-gears"></i> Optimise Berth Assignment
+                                </button>
+                            </form>
+                            <div id="berth-opt-result" class="result-card hidden"></div>
+                        </div>
+                    </div>
+
+                    <!-- Crane Optimiser -->
+                    <div class="panel grid-col-6">
+                        <div class="panel-header">
+                            <h3><i class="fa-solid fa-tower-observation"></i> Quay Crane Allocation Optimiser</h3>
+                        </div>
+                        <div class="panel-body">
+                            <form id="crane-opt-form" class="form-container">
+                                <div class="form-group">
+                                    <label>Select Vessel:</label>
+                                    <select id="crane-vessel-select" class="form-control"></select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Assigned Berth:</label>
+                                    <select id="crane-berth-select" class="form-control"></select>
+                                </div>
+                                <button type="submit" class="btn-primary full-width">
+                                    <i class="fa-solid fa-truck-ramp-box"></i> Allocate Quay Cranes
+                                </button>
+                            </form>
+                            <div id="crane-opt-result" class="result-card hidden"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 5: 72-Hour Operations Plan -->
+            <section id="tab-operations-plan" class="tab-content">
+                <div class="panel">
+                    <div class="panel-header">
+                        <h3><i class="fa-solid fa-calendar-check"></i> Shift Supervisor 72-Hour Operational Plan</h3>
+                        <span class="badge info-badge">Horizon: Next 72 Hours</span>
+                    </div>
+                    <div class="panel-body">
+                        <div id="plan-impact-summary" class="alert-box info-box"></div>
+                        <div class="table-responsive margin-top">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Time Block</th>
+                                        <th>Vessel</th>
+                                        <th>Berth</th>
+                                        <th>Cranes</th>
+                                        <th>Action</th>
+                                        <th>Priority</th>
+                                        <th>Risk</th>
+                                        <th>Expected Impact</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="plan-table-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Bob Copilot AI Assistant Chat Drawer -->
+        <div id="assistant-drawer" class="assistant-drawer hidden">
+            <div class="drawer-header">
+                <div class="drawer-title">
+                    <i class="fa-solid fa-robot"></i>
+                    <div>
+                        <h4>Bob Copilot AI</h4>
+                        <span class="sub-text">IBM Bob Port Intelligence</span>
+                    </div>
+                </div>
+                <button id="btn-close-assistant" class="btn-icon"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div class="drawer-body" id="chat-messages">
+                <div class="chat-bubble system">
+                    👋 Welcome! I am <strong>Bob Copilot</strong>. I have real-time access to port telemetry, berth schedules, crane allocations, and disruption monitors. Ask me any question below or click a quick prompt!
+                </div>
+            </div>
+
+            <div class="chat-quick-prompts">
+                <button class="chip-btn" data-prompt="Which vessels are at highest risk?">Highest risk vessels?</button>
+                <button class="chip-btn" data-prompt="Why is Berth B03 congested?">Why is B03 congested?</button>
+                <button class="chip-btn" data-prompt="Suggest an alternate route for V102">Reroute V102</button>
+                <button class="chip-btn" data-prompt="Generate the 72-hour operations plan">72h Ops Plan</button>
+            </div>
+
+            <div class="drawer-footer">
+                <form id="chat-form" class="chat-input-form">
+                    <input type="text" id="chat-input" placeholder="Ask Bob Copilot..." required>
+                    <button type="submit" class="btn-primary"><i class="fa-solid fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+crane_id,name,berth_id,handling_rate_teu_hr,status,assigned_vessel_id
+C01,Super Post-Panamax 1,B01,150,IN_USE,V101
+C02,Super Post-Panamax 2,B01,140,IN_USE,V101
+C03,Quay Crane 3,B02,120,IN_USE,V104
+C04,Quay Crane 4,B02,125,AVAILABLE,
+C05,Mega Gantry 5,B03,160,IN_USE,V102
+C06,Mega Gantry 6,B03,155,MAINTENANCE,
+C07,Hazard Gantry 7,B05,110,OUTAGE,V105
+C08,Standard Quay Crane 8,B06,100,AVAILABLE,
+C09,Standard Quay Crane 9,B07,95,AVAILABLE,
+C10,Reefer Gantry 10,B08,130,AVAILABLE,

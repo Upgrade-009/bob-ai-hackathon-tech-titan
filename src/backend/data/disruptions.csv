@@ -1,0 +1,9 @@
+disruption_id,type,affected_target,severity,description,start_time,expected_duration_hrs,is_active
+D01,Weather,Main Channel,HIGH,Heavy fog reducing vessel navigation speed to 4 knots,2026-09-15T06:00:00,12,1
+D02,Crane Outage,C07,CRITICAL,Electrical failure on Hazard Gantry 7 at Berth B05,2026-09-15T07:30:00,24,1
+D03,Berth Closure,B05,CRITICAL,Safety lockdown due to chemical container leak risk,2026-09-15T08:00:00,18,1
+D04,Port Congestion,B03,HIGH,High arrival density causing 9+ hour queue at Central Deepwater 1,2026-09-15T09:00:00,36,1
+D05,Route Delay,Port Alpha Approach,MEDIUM,Dredging operations restricting inbound channel capacity,2026-09-15T00:00:00,48,1
+D06,Crane Maintenance,C06,MEDIUM,Scheduled preventative maintenance on Mega Gantry 6,2026-09-15T10:00:00,8,1
+D07,Labor Shortage,South Terminal,LOW,Shift gap during night turnaround window,2026-09-15T22:00:00,6,0
+D08,IT System Delay,Gate 3 Terminal,MEDIUM,TOS EDI integration sync latency,2026-09-15T04:00:00,10,0
